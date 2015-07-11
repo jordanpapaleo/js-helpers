@@ -1,0 +1,22 @@
+{
+  "name": "JSHelpers",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "npm run lint -s && npm run build",
+    "lint-jscs": "jscs js/",
+    "lint-eslint": "eslint --ignore-path .gitignore js/",
+    "lint": "npm run lint-eslint && npm run lint-jscs"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "eslint": "^0.22.1",
+    "jscs": "^1.7.3"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}
