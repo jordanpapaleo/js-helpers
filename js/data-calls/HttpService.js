@@ -1,3 +1,5 @@
+'use strict';
+
 var HTTP = {
     get: function(url, cb) {
         var xhr = new XMLHttpRequest();
@@ -21,4 +23,4 @@ var HTTP = {
     }
 };
 
-export default HTTP;
+//export default HTTP;

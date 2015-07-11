@@ -8,11 +8,10 @@ function Observer() {
 Observer.prototype.subscribe = function(cb) {
     var hasSubscribed = false;
 
-    if(typeof(cb) === 'function') {
+    if(cb instanceof Function) {
         this.observers.push(cb);
         hasSubscribed = true;
-    }
-    else {
+    } else {
         console.debug('Callback is not a function');
     }
 
@@ -26,8 +25,7 @@ Observer.prototype.update = function(observable) {
         this.observable = observable;
         this.refresh();
         hasUpdated = true;
-    }
-    else {
+    } else {
         console.debug('Null observable');
     }
 
@@ -42,7 +40,7 @@ Observer.prototype.refresh = function() {
     }
 };
 
-Observer.prototype.reset = function () {
+Observer.prototype.reset = function() {
     this.observable = null;
 };
 
@@ -50,7 +48,7 @@ Observer.prototype.unsubscribe = function(cb) {
     var hasUnsubscribed = false;
     var cbIndex = this.observers.indexOf(cb);
 
-    if(cbIndex != -1) {
+    if(cbIndex !== -1) {
         this.observers.splice(cbIndex, 1);
         hasUnsubscribed = true;
     }

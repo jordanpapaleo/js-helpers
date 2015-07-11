@@ -15,7 +15,7 @@ function Accessor () {
 Accessor.prototype.get = function(key) {
     if(key && !this.value) {
         if(!this.session || !this.local) {
-            this.m_initWebStorage();
+            this._initWebStorage();
         }
 
         if(this.session && this.session.get(key)) {
@@ -35,8 +35,8 @@ Accessor.prototype.set = function(val, key) {
     this.value = val;
 
     if(key) {
-        this.m_setInLocal(key, val);
-        this.m_setInSession(key, val);
+        this._setInLocal(key, val);
+        this._setInSession(key, val);
     }
 
     return true;
@@ -50,7 +50,7 @@ Accessor.prototype.clear = function(key) {
 
     if(key) {
         if(!this.session || !this.local) {
-            this.m_initWebStorage();
+            this._initWebStorage();
         }
 
         this.local.remove(key);
@@ -58,23 +58,23 @@ Accessor.prototype.clear = function(key) {
     }
 };
 
-Accessor.prototype.m_setInLocal = function(key, val) {
+Accessor.prototype._setInLocal = function(key, val) {
     if(!this.local) {
-        this.m_initWebStorage();
+        this._initWebStorage();
     }
 
     this.local.set(key, val);
 };
 
-Accessor.prototype.m_setInSession = function(key, val) {
+Accessor.prototype._setInSession = function(key, val) {
     if(!this.session) {
-        this.m_initWebStorage();
+        this._initWebStorage();
     }
 
     this.session.set(key, val);
 };
 
-Accessor.prototype.m_initWebStorage = function() {
+Accessor.prototype._initWebStorage = function() {
     this.local = new WebStorage('localStorage');
     this.session = new WebStorage('sessionStorage');
 };

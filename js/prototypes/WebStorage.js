@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * A generic web storage factory for session and local storage
  * @param {String} storageType   'localStorage' || 'sessionStorage'
@@ -11,11 +13,11 @@ function WebStorage(storageType) {
 }
 
 WebStorage.prototype.serialize = function(value) {
-    return angular.toJson(value);
+    return JSON.stringify(value);
 };
 
 WebStorage.prototype.deserialize = function(value) {
-    return angular.fromJson(value);
+    return JSON.parse(value);
 };
 
 WebStorage.prototype.encode = function(value) {
@@ -36,8 +38,7 @@ WebStorage.prototype.checkSupportFor = function(storageType) {
         this.type = storageType;
 
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 };
@@ -55,7 +56,7 @@ WebStorage.prototype.set = function(key, value) {
         }
 
         try {
-            if (angular.isObject(value) || angular.isArray(value)) {
+            if (value instanceof Object) {
                 value = this.serialize(value);
             }
 
@@ -66,9 +67,8 @@ WebStorage.prototype.set = function(key, value) {
             this.webStorage.setItem(key, value);
 
             return true;
-        }
-        catch (error) {
-            console.error("Unable to save key " + key + " to " + this.type);
+        } catch (error) {
+            console.error('Unable to save key ' + key + ' to ' + this.type);
             return false;
         }
     }
@@ -88,10 +88,9 @@ WebStorage.prototype.get = function(key) {
 
         try {
             value = this.webStorage.getItem(key);
-        }
-        catch (error) {
-            console.error("Error attempting to get key " + key + " from " + this.type);
-            throw new Error("Unable to get stored preference");
+        } catch (error) {
+            console.error('Error attempting to get key ' + key + ' from ' + this.type);
+            throw new Error('Unable to get stored preference');
         }
 
         if (!value) {
@@ -100,8 +99,8 @@ WebStorage.prototype.get = function(key) {
 
         if (value !== null) {
             value = this.decode(value);
-            //console.info("decoded value is " + value);
-            if ((value.charAt(0) === "{") || (value.charAt(0) === "[")) {
+            //console.info('decoded value is ' + value);
+            if ((value.charAt(0) === '{') || (value.charAt(0) === '[')) {
                 value = this.deserialize(value);
             }
         }
@@ -118,12 +117,13 @@ WebStorage.prototype.get = function(key) {
  * @return {Array}           An array of matching keys
  */
 WebStorage.prototype.getAll = function(keyPrefix) {
-    var returnKeys = [], key, keyPrefixLength;
+    var returnKeys = [];
+    var key;
+    var keyPrefixLength;
 
     if (keyPrefix != null) {
         keyPrefixLength = keyPrefix.length;
-    }
-    else {
+    } else {
         keyPrefixLength = 0;
     }
 
@@ -133,10 +133,9 @@ WebStorage.prototype.getAll = function(keyPrefix) {
                 returnKeys.push(key.substr(keyPrefixLength));
             }
         }
-    }
-    catch (error) {
-        // console.error("Error occurred getting all keys starting with " + keyPrefix);
-        throw new Error("Unable to read stored preferences.");
+    } catch (error) {
+        // console.error('Error occurred getting all keys starting with ' + keyPrefix);
+        throw new Error('Unable to read stored preferences.');
     }
 
     return returnKeys;
@@ -153,9 +152,8 @@ WebStorage.prototype.remove = function(key) {
             this.webStorage.removeItem(key);
 
             return true;
-        }
-        catch (error) {
-            console.error("Error occurred while trying to remove key " + key + " from " + this.type);
+        } catch (error) {
+            console.error('Error occurred while trying to remove key ' + key + ' from ' + this.type);
             return false;
         }
     }
@@ -173,9 +171,8 @@ WebStorage.prototype.clear = function() {
             this.webStorage.clear();
 
             return true;
-        }
-        catch (error) {
-            console.error("Error occurred while trying to clear ALL data from " + this.type);
+        } catch (error) {
+            console.error('Error occurred while trying to clear ALL data from ' + this.type);
             return false;
         }
     }

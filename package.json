@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npm run lint -s && npm run build",
+    "test": "npm run lint -f",
     "lint-jscs": "jscs js/",
     "lint-eslint": "eslint --ignore-path .gitignore js/",
     "lint": "npm run lint-eslint && npm run lint-jscs"
