@@ -1,4 +1,4 @@
-// returns an random value from an
+// returns an random value from an array
 /*
 var myArr = [1, 2, 3];
 var randomValue = myArr.getRandom
