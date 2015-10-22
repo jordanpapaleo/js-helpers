@@ -1,4 +1,4 @@
-var ObjUtils = {};
+/* var ObjUtils = {}
 
 ObjUtils.valueEqual = function(object1, object2) {
     object1keys = <list of keys of object1>
@@ -22,4 +22,4 @@ ObjUtils.valueEqual = function(object1, object2) {
     return true
 }
 
-export default ObjUtils;
+export default ObjUtils */

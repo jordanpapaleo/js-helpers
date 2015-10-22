@@ -3,20 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npm run lint -f",
-    "lint-jscs": "jscs js/",
-    "lint-eslint": "eslint --ignore-path .gitignore js/",
-    "lint": "npm run lint-eslint && npm run lint-jscs"
+    "lint": "standard js/**/* | standard-reporter --stylish"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
   },
   "repository": {
     "type": "git",
     "url": ""
   },
   "devDependencies": {
-    "eslint": "^0.22.1",
-    "jscs": "^1.7.3"
+    "standard": "^5.3.1",
+    "standard-reporter": "^1.0.5"
   },
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
