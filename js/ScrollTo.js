@@ -1,5 +1,5 @@
 function scrollToY (to, duration, callback) {
-  Math.easeInOutQuad = function (t, b, c, d) {
+  Math.easeInOutQuad = function easeInOutQuad (t, b, c, d) {
     t /= d / 2
     if (t < 1) {
       return c / 2 * t * t + b
@@ -8,12 +8,12 @@ function scrollToY (to, duration, callback) {
     return -c / 2 * (t * (t - 2) - 1) + b
   }
 
-  Math.easeInCubic = function (t, b, c, d) {
+  Math.easeInCubic = function easeInCubic (t, b, c, d) {
     var tc = (t /= d) * t * t
     return b + c * (tc)
   }
 
-  Math.inOutQuintic = function (t, b, c, d) {
+  Math.inOutQuintic = function inOutQuintic(t, b, c, d) {
     var ts = (t /= d) * t
     var tc = ts * t
     return b + c * (6 * tc * ts + -15 * ts * ts + 10 * tc)

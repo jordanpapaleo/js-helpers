@@ -1,9 +1,9 @@
 /* global XMLHttpRequest */
 
-var HTTP = {
-  get: function (url, cb) {
+const HTTP = {
+  get (url, cb) {
     var xhr = new XMLHttpRequest()
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         cb(xhr.responseText)
       }
@@ -12,13 +12,13 @@ var HTTP = {
     xhr.open('GET', url, true)
     xhr.send()
   },
-  post: function () {
+  post () {
     // TODO
   },
-  delete: function () {
+  delete () {
     // TODO
   },
-  put: function () {
+  put () {
     // TODO
   }
 }

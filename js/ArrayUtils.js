@@ -1,24 +1,24 @@
-var ArrayUtils = {}
+const ArrayUtils = {}
 
 // Gets random index
-ArrayUtils.getRandom = function (array) {
+ArrayUtils.getRandom = function getRandom (array) {
   return array[Math.floor(Math.random() * array.length)]
 }
 
 // clones an array
-ArrayUtils.clone = function (array) {
+ArrayUtils.clone = function clone (array) {
   return array.slice(0)
   // return [].concat(array)
 }
 
-Array.sortShuffle = function () {
-  shuffledNumbers.sort(function() {
+Array.sortShuffle = function sortShuffle () {
+  shuffledNumbers.sort(() => {
     return 0.5 - Math.random()
   })
 }
 
 // Performs the Fisher Yates Sort Algorithm
-ArrayUtils.shuffle = function (array) {
+ArrayUtils.shuffle = function shuffle (array) {
   var copiedArray = array.slice(0)
 
   var i = 0

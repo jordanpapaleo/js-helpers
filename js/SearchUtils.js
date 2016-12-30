@@ -1,6 +1,6 @@
-var SearchUtils = {}
+const SearchUtils = {}
 
-SearchUtils.deepSearch = function (collection, value) {
+SearchUtils.deepSearch = function deepSearch (collection, value) {
   var matched
   var i = collection.length
 
