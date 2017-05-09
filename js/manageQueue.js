@@ -3,7 +3,7 @@
  * @param maxSimultaneous: int for the maximum simultaneous items that can be processed
  * @param processCb: function returning a promise that does the thing
  */
-function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
+function manageQueue (queue, maxSimultaneous = 3, processCb) {
   return new Promise((resolve, reject) => {
     let returnData = []
     let running = 0
@@ -11,8 +11,8 @@ function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
     processQueue()
 
     function processQueue () {
-      while (fileQueue.length && running < maxSimultaneous) {
-        processCb(fileQueue.shift()).then(
+      while (queue.length && running < maxSimultaneous) {
+        processCb(queue.shift()).then(
           data => {
             returnData.push(data)
             checkQueue()
@@ -25,7 +25,7 @@ function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
     }
 
     function checkQueue () {
-      if (fileQueue.length) {
+      if (queue.length) {
         running--
         processQueue()
       } else {
