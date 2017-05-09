@@ -1,36 +1,63 @@
-/*
- * @param fileQueue: array of items to process
- * @param maxSimultaneous: int for the maximum simultaneous items that can be processed
- * @param processCb: function returning a promise that does the thing
- */
-function manageQueue (queue, maxSimultaneous = 3, processCb) {
-  return new Promise((resolve, reject) => {
-    let returnData = []
-    let running = 0
+export default class Queue {
+  /*
+   * @param fileQueue: array of items to process
+   * @param maxSimultaneous: int for the maximum simultaneous items that can be processed
+   */
+  constructor (queue, maxSimultaneous = 3) {
+    this.queue = queue
+    this.maxSimultaneous = maxSimultaneous
+    this.reporters = []
+  }
 
-    processQueue()
+  // Function used to emit updates from the queue processing
+  subscribe (cb) {
+    this.reporters.push(cb)
+  }
 
-    function processQueue () {
-      while (queue.length && running < maxSimultaneous) {
-        processCb(queue.shift()).then(
-          data => {
-            returnData.push(data)
-            checkQueue()
-          },
-          err => { reject(err) }
-        )
+  addItem (item) {
+    this.queue.push(item)
+  }
 
-        running++
+  report (data) {
+    this.reporters.forEach((reporter) => {
+      reporter(data)
+    })
+  }
+
+  /*
+   * @param processCb: function returning a promise that does the thing
+   */
+  processQueue (processCb) {
+    const {queue, maxSimultaneous, report} = this
+    return new Promise((resolve, reject) => {
+      let returnData = []
+      let running = 0
+
+      updateQueue()
+
+      function updateQueue () {
+        while (queue.length && running < maxSimultaneous) {
+          processCb(queue.shift()).then(
+            data => {
+              returnData.push(data)
+              report(data)
+              checkQueue()
+            },
+            err => { reject(err) }
+          )
+
+          running++
+        }
       }
-    }
 
-    function checkQueue () {
-      if (queue.length) {
-        running--
-        processQueue()
-      } else {
-        resolve(returnData)
+      function checkQueue () {
+        if (queue.length) {
+          running--
+          updateQueue()
+        } else {
+          resolve(returnData)
+        }
       }
-    }
-  })
+    })
+  }
 }
