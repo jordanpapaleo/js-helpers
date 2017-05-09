@@ -1,6 +1,6 @@
 /*
  * @param fileQueue: array: of items to process
- * @param uploadLimit: int: the maximum simultaneous items that can be processed
+ * @param maxSimultaneous: int: the maximum simultaneous items that can be processed
  * @param processCb: function returning a promise: what to do with each item
  */
 function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
