@@ -1,7 +1,7 @@
 /*
- * @param fileQueue: array: of items to process
- * @param maxSimultaneous: int: the maximum simultaneous items that can be processed
- * @param processCb: function returning a promise: what to do with each item
+ * @param fileQueue: array of items to process
+ * @param maxSimultaneous: int for the maximum simultaneous items that can be processed
+ * @param processCb: function returning a promise that does the thing
  */
 function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
   return new Promise((resolve, reject) => {
