@@ -1,9 +1,9 @@
 /*
- * @param fileQueue: array: of items to do process
- * @param uploadLimit: int: the maximum simultaneous items that can be processes
+ * @param fileQueue: array: of items to process
+ * @param uploadLimit: int: the maximum simultaneous items that can be processed
  * @param processCb: function returning a promise: what to do with each item
  */
-function manageQueue (fileQueue, uploadLimit = 3, processCb) {
+function manageQueue (fileQueue, maxSimultaneous = 3, processCb) {
   return new Promise((resolve, reject) => {
     let returnData = []
     let running = 0
@@ -11,13 +11,13 @@ function manageQueue (fileQueue, uploadLimit = 3, processCb) {
     processQueue()
 
     function processQueue () {
-      while (fileQueue.length && running < uploadLimit) {
+      while (fileQueue.length && running < maxSimultaneous) {
         processCb(fileQueue.shift()).then(
           data => {
             returnData.push(data)
             checkQueue()
           },
-          err => { throw (err) }
+          err => { reject(err) }
         )
 
         running++
