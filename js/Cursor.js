@@ -1,3 +1,31 @@
+/*
+THREEJS Cursor prototype for gazing/fusing
+
+ex:
+const scene = new THREE.Scene()
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000)
+
+const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
+const material = new THREE.MeshNormalMaterial()
+const cube = new THREE.Mesh(geometry, material)
+
+cube.onFusing = function () {
+  console.warn('fusing')
+}
+
+cube.onFused = function () {
+  console.warn('onfused')
+}
+
+cube.onFuseEnd = function (){
+  console.warn('onfuseend')
+}
+
+const cursor = new Cursor(camera)
+cursor.addItem(cube)
+*/
+
+
 const {
   RingGeometry,
   MeshBasicMaterial,
