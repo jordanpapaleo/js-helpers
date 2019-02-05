@@ -1,11 +1,8 @@
 class Observer {
-  constructor () {
-    this._observers = []
-    this._observable = null
-  }
+  _observers = []
 
-  subscribe (cb) {
-    var hasSubscribed = false
+  subscribe(cb) {
+    let hasSubscribed = false
 
     if (cb instanceof Function) {
       this._observers.push(cb)
@@ -17,31 +14,9 @@ class Observer {
     return hasSubscribed
   }
 
-  update (observable) {
-    var hasUpdated = false
-
-    if (observable) {
-      this._observable = observable
-      this.refresh()
-      hasUpdated = true
-    } else {
-      console.debug('Null observable')
-    }
-
-    return hasUpdated
-  }
-
-  refresh () {
-    if (this._observable) {
-      for (let observer of this._observers) {
-        observer(this._observable)
-      }
-    }
-  }
-
-  reset () {
-    this._observable = null
+  update(value) {
+    this._observers.forEach((observer) => {
+      observer(value)
+    })
   }
 }
-
-export default Observer
